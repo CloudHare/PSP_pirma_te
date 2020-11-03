@@ -21,11 +21,16 @@ namespace PSP_pirma_te
         int luggage;
         bool coffee;
 
+        PackageDelivery packageDelivery;
+        Destination packDest;
+        int weight;
+
         public Form1()
         {
             InitializeComponent();
 
             flightTicket = new FlightTicket();
+            packageDelivery = new PackageDelivery();
 
             comboBox1.DataSource = Enum.GetValues(typeof(Destination));
             comboBox3.DataSource = Enum.GetValues(typeof(Destination));
@@ -60,10 +65,34 @@ namespace PSP_pirma_te
             }
             
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            packDest = (Destination)comboBox3.SelectedValue;
+            weight = Convert.ToInt32(weightInput.Value);
+            if (weight > 0)
+            {
+                weightWarningText.Visible = false;
+            }
+            else
+            {
+                weightWarningText.Visible = true;
+                return;
+            }
+
+            price = packageDelivery.calculateDeliveryPrice(packDest, weight);
+            price = Math.Round(price, 2);
+
+            packDestField.Text = packDest.ToString();
+            weightField.Text = weight.ToString();
+            packPriceField.Text = price.ToString();
+        }
+
 
         private void flightDestField_TextChanged(object sender, EventArgs e)
         {
 
         }
+
+        
     }
 }
