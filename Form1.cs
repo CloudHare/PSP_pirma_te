@@ -1,4 +1,5 @@
-﻿using PSP_pirma_st.Enums;
+﻿using PSP_pirma_te.Enums;
+using PSP_pirma_te.Structs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,80 +12,70 @@ using System.Windows.Forms;
 
 namespace PSP_pirma_te
 {
-    public partial class Form1 : Form
+    public partial class Client : Form
     {
-        double price;
-
         FlightTicket flightTicket;
-        Destination flightDest;
-        FlightClass flightClass;
-        int luggage;
-        bool coffee;
+        Document doc;
+        FlightTicketData ftd;
 
         PackageDelivery packageDelivery;
-        Destination packDest;
         int weight;
+        double deliveryPrice;
 
-        public Form1()
+        public Client()
         {
             InitializeComponent();
 
-            flightTicket = new FlightTicket();
-            packageDelivery = new PackageDelivery();
+            flightTicket = new BusinessBostonTicket();
 
-            comboBox1.DataSource = Enum.GetValues(typeof(Destination));
-            comboBox3.DataSource = Enum.GetValues(typeof(Destination));
-            comboBox2.DataSource = Enum.GetValues(typeof(FlightClass));
+            packageDelivery = new RomeDelivery();
+
+            comboBox1.DataSource = Enum.GetValues(typeof(Document));
+
+            // Should I remove these?
+            flightDestField.Text = flightTicket.getDestination().ToString();
+            flightClassField.Text = flightTicket.getFlightClass().ToString();
+            deliveryDestField.Text = packageDelivery.getDestination().ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            flightDest = (Destination)comboBox1.SelectedValue;
-            flightClass = (FlightClass)comboBox2.SelectedValue;
+            doc = (Document)comboBox1.SelectedValue;
 
-            price = flightTicket.calculatePrice(flightDest, flightClass);
-            price = Math.Round(price, 2);
-            luggage = flightTicket.calculateLuggage(flightDest, flightClass);
-            coffee = flightTicket.isCoffeeIncluded(flightDest, flightClass);
+            ftd = flightTicket.getTicket(doc);
 
-            flightDestField.Text = flightDest.ToString();
-            flightClassField.Text = flightClass.ToString();
-            flightPriceField.Text = price.ToString();
-            luggageField.Text = luggage.ToString();
-            if (coffee)
+            flightPriceField.Text = ftd.Price.ToString();
+            luggageField.Text = ftd.Luggage.ToString();
+            if (ftd.GoodDoc)
             {
-                coffeeField.Text = "yes";
+                goodDocumentField.Text = "yes";
             }
-            else if (!coffee)
+            else if (!ftd.GoodDoc)
             {
-                coffeeField.Text = "no";
+                goodDocumentField.Text = "no";
             }
             else
             {
-                throw new NotImplementedException("coffee value undefined");
+                throw new NotImplementedException("document value undefined");
             }
-            
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            packDest = (Destination)comboBox3.SelectedValue;
             weight = Convert.ToInt32(weightInput.Value);
             if (weight > 0)
             {
-                weightWarningText.Visible = false;
+                weightWarningField.Visible = false;
             }
             else
             {
-                weightWarningText.Visible = true;
+                weightWarningField.Visible = true;
                 return;
             }
 
-            price = packageDelivery.calculateDeliveryPrice(packDest, weight);
-            price = Math.Round(price, 2);
+            deliveryPrice = packageDelivery.calculatePrice(weight);
 
-            packDestField.Text = packDest.ToString();
             weightField.Text = weight.ToString();
-            packPriceField.Text = price.ToString();
+            deliveryPriceField.Text = deliveryPrice.ToString();
         }
 
 
@@ -93,6 +84,14 @@ namespace PSP_pirma_te
 
         }
 
-        
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

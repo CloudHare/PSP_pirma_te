@@ -1,4 +1,4 @@
-﻿using PSP_pirma_st.Enums;
+﻿using PSP_pirma_te.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,19 +9,34 @@ namespace PSP_pirma_te
 {
     class EconomyRomeTicket : FlightTicket
     {
-        public override double calculatePrice(Destination dest, FlightClass flightClass)
+        public override double calculatePrice()
         {
-            return (1.22 * 40.44);
+            double price;
+
+            price = 1.22 * 40.44;
+            price = Math.Round(price, 2);
+
+            return price;
         }
 
-        public override int calculateLuggage(Destination dest, FlightClass flightClass)
+        public override int calculateLuggage()
         {
             return 15;
         }
 
-        public override bool isCoffeeIncluded(Destination dest, FlightClass flightClass)
+        public override bool goodDocument(Document doc)
         {
-            return false;
+            switch (doc)
+            {
+                case Document.IDCard:
+                    return true;
+
+                case Document.Passport:
+                    return true;
+
+                default:
+                    throw new NotImplementedException("Unknown document");
+            }
         }
     }
 }

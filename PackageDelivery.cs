@@ -1,4 +1,5 @@
-﻿using PSP_pirma_st.Enums;
+﻿using PSP_pirma_te.Enums;
+using PSP_pirma_te.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,37 +8,27 @@ using System.Threading.Tasks;
 
 namespace PSP_pirma_te
 {
-    class PackageDelivery
+    abstract class PackageDelivery
     {
-        PackageDelivery pd;
-        int weight;
 
-        public virtual double calculateDeliveryPrice(Destination dest, int weight)
+        public abstract double calculatePrice(int weight);
+
+
+        // For the sake of a nicer interface, has nothing to do with logic
+        // Should I delete this and not display Destination in the interface?
+        public Destination getDestination()
         {
-            double price;
-
-            setDestination(dest);
-
-            price = pd.calculateDeliveryPrice(dest, weight);
-            price = price * 0.02 * weight;
-
-            return price;
-        }
-
-        private void setDestination(Destination dest)
-        {
-            switch (dest)
+            if (this.GetType() == typeof(RomeDelivery))
             {
-                case Destination.Boston:
-                    pd = new BostonDelivery();
-                    break;
-
-                case Destination.Rome:
-                    pd = new RomeDelivery();
-                    break;
-
-                default:
-                    throw new NotImplementedException("Unknown destination");
+                return Destination.Rome;
+            }
+            else if (this.GetType() == typeof(BostonDelivery))
+            {
+                return Destination.Boston;
+            }
+            else
+            {
+                throw new NotImplementedException("Unknown destination");
             }
         }
     }

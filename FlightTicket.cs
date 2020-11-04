@@ -1,4 +1,5 @@
-﻿using PSP_pirma_st.Enums;
+﻿using PSP_pirma_te.Enums;
+using PSP_pirma_te.Structs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,77 +8,55 @@ using System.Threading.Tasks;
 
 namespace PSP_pirma_te
 {
-    class FlightTicket
+    abstract class FlightTicket
     {
-        FlightTicket ft;
-
-        public virtual double calculatePrice(Destination dest, FlightClass flightClass)
+        public FlightTicketData getTicket(Document doc)
         {
-            double price;
+            FlightTicketData ftd = new FlightTicketData();
+            ftd.Price = calculatePrice();
+            ftd.Luggage = calculateLuggage();
+            ftd.GoodDoc = goodDocument(doc);
 
-            setFlightClassAndDestination(flightClass, dest);
-           
-            price = ft.calculatePrice(dest, flightClass);
-            return price;
-        }
-        
-        public virtual int calculateLuggage(Destination dest, FlightClass flightClass)
-        {
-            int luggage;
-
-            setFlightClassAndDestination(flightClass, dest);
-
-            luggage = ft.calculateLuggage(dest, flightClass);
-
-            return luggage;
+            return ftd;
         }
 
-        public virtual bool isCoffeeIncluded(Destination dest, FlightClass flightClass)
+        public abstract double calculatePrice();
+
+        public abstract int calculateLuggage();
+
+        public abstract bool goodDocument(Document doc);
+
+        // For the sake of a nicer interface, has nothing to do with logic
+        // Should I delete this and not display Destination and FlightClass in the interface?
+        public Destination getDestination()
         {
-            bool coffee;
-
-            setFlightClassAndDestination(flightClass, dest);
-
-            coffee = ft.isCoffeeIncluded(dest, flightClass);
-
-            return coffee;
-        }
-        
-        private void setFlightClassAndDestination(FlightClass flightClass, Destination dest)
-        {
-            if (dest == Destination.Boston)
+            if (this.GetType() == typeof(BusinessRomeTicket) || this.GetType() == typeof(EconomyRomeTicket))
             {
-                switch (flightClass)
-                {
-                    case FlightClass.Business:
-                        ft = new BusinessBostonTicket();
-                        break;
-
-                    case FlightClass.Economy:
-                        ft = new EconomyBostonTicket();
-                        break;
-
-                    default: throw new NotImplementedException("Unknown flight class");
-                }
+                return Destination.Rome;
             }
-            else if (dest == Destination.Rome)
+            else if (this.GetType() == typeof(BusinessBostonTicket) || this.GetType() == typeof(EconomyBostonTicket))
             {
-                switch (flightClass)
-                {
-                    case FlightClass.Business:
-                        ft = new BusinessRomeTicket();
-                        break;
-
-                    case FlightClass.Economy:
-                        ft = new EconomyRomeTicket();
-                        break;
-
-                    default: throw new NotImplementedException("Unknown flight class");
-                }
+                return Destination.Boston;
             }
             else
             {
                 throw new NotImplementedException("Unknown destination");
+            }
+        }
+
+        public FlightClass getFlightClass()
+        {
+            if (this.GetType() == typeof(BusinessRomeTicket) || this.GetType() == typeof(BusinessBostonTicket))
+            {
+                return FlightClass.Business;
+            }
+            else if (this.GetType() == typeof(EconomyRomeTicket) || this.GetType() == typeof(EconomyBostonTicket))
+            {
+                return FlightClass.Economy;
+            }
+            else
+            {
+                throw new NotImplementedException("Unknown flight class");
             }
         }
     }

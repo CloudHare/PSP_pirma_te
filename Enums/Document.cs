@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PSP_pirma_te.Enums
 {
-    public enum FlightClass
+    public enum Document
     {
-        Business,
-        Economy
+        IDCard,
+        Passport
     }
 }
