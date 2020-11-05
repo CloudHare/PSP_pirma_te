@@ -38,14 +38,14 @@ namespace PSP_pirma_te
                     throw new NotImplementedException("Unknown document");
             }
         }
-        public override Destination getDestination()
+        public override string getDestination()
         {
-            return Destination.Boston;
+            return "Boston";
         }
 
-        public override FlightClass getFlightClass()
+        public override string getFlightClass()
         {
-            return FlightClass.Business;
+            return "Business";
         }
     }
 }

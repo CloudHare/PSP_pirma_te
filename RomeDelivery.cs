@@ -17,9 +17,9 @@ namespace PSP_pirma_te
             return price;
         }
 
-        public override Destination getDestination()
+        public override string getDestination()
         {
-            return Destination.Rome;  
+            return "Rome";  
         }
     }
 }

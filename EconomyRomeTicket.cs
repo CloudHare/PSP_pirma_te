@@ -39,14 +39,14 @@ namespace PSP_pirma_te
             }
         }
 
-        public override Destination getDestination()
+        public override string getDestination()
         {
-            return Destination.Rome;
+            return "Rome";
         }
 
-        public override FlightClass getFlightClass()
+        public override string getFlightClass()
         {
-            return FlightClass.Economy;
+            return "Economy";
         }
     }
 }

@@ -26,8 +26,8 @@ namespace PSP_pirma_te
 
         public abstract bool goodDocument(Document doc);
 
-        public abstract Destination getDestination();
+        public abstract string getDestination();
 
-        public abstract FlightClass getFlightClass();
+        public abstract string getFlightClass();
     }
 }

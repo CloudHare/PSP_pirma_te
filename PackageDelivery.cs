@@ -12,6 +12,6 @@ namespace PSP_pirma_te
     {
 
         public abstract double calculatePrice(int weight);
-        public abstract Destination getDestination();
+        public abstract string getDestination();
     }
 }
