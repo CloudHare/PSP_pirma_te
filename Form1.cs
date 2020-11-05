@@ -26,13 +26,12 @@ namespace PSP_pirma_te
         {
             InitializeComponent();
 
-            flightTicket = new BusinessBostonTicket();
+            flightTicket = new EconomyRygaTicket();
 
-            packageDelivery = new RomeDelivery();
+            packageDelivery = new RygaDelivery();
 
             comboBox1.DataSource = Enum.GetValues(typeof(Document));
 
-            // Should I remove these?
             flightDestField.Text = flightTicket.getDestination().ToString();
             flightClassField.Text = flightTicket.getFlightClass().ToString();
             deliveryDestField.Text = packageDelivery.getDestination().ToString();

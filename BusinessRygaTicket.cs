@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PSP_pirma_te
 {
-    class BusinessBostonTicket : FlightTicket
+    class BusinessRygaTicket : FlightTicket
     {
         public override double calculatePrice()
         {
             double price;
 
-            price = 2.11 * 230.12;
+            price = 2.11 * 20.01;
             price = Math.Round(price, 2);
 
             return price;
@@ -29,7 +29,7 @@ namespace PSP_pirma_te
             switch (doc)
             {
                 case Document.IDCard:
-                    return false;
+                    return true;
 
                 case Document.Passport:
                     return true;
@@ -40,7 +40,7 @@ namespace PSP_pirma_te
         }
         public override Destination getDestination()
         {
-            return Destination.Boston;
+            return Destination.Ryga;
         }
 
         public override FlightClass getFlightClass()

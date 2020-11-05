@@ -16,5 +16,10 @@ namespace PSP_pirma_te
 
             return price;
         }
+
+        public override Destination getDestination()
+        {
+            return Destination.Boston;
+        }
     }
 }

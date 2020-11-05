@@ -26,38 +26,8 @@ namespace PSP_pirma_te
 
         public abstract bool goodDocument(Document doc);
 
-        // For the sake of a nicer interface, has nothing to do with logic
-        // Should I delete this and not display Destination and FlightClass in the interface?
-        public Destination getDestination()
-        {
-            if (this.GetType() == typeof(BusinessRomeTicket) || this.GetType() == typeof(EconomyRomeTicket))
-            {
-                return Destination.Rome;
-            }
-            else if (this.GetType() == typeof(BusinessBostonTicket) || this.GetType() == typeof(EconomyBostonTicket))
-            {
-                return Destination.Boston;
-            }
-            else
-            {
-                throw new NotImplementedException("Unknown destination");
-            }
-        }
+        public abstract Destination getDestination();
 
-        public FlightClass getFlightClass()
-        {
-            if (this.GetType() == typeof(BusinessRomeTicket) || this.GetType() == typeof(BusinessBostonTicket))
-            {
-                return FlightClass.Business;
-            }
-            else if (this.GetType() == typeof(EconomyRomeTicket) || this.GetType() == typeof(EconomyBostonTicket))
-            {
-                return FlightClass.Economy;
-            }
-            else
-            {
-                throw new NotImplementedException("Unknown flight class");
-            }
-        }
+        public abstract FlightClass getFlightClass();
     }
 }

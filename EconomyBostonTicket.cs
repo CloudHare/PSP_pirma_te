@@ -38,5 +38,15 @@ namespace PSP_pirma_te
                     throw new NotImplementedException("Unknown document");
             }
         }
+
+        public override Destination getDestination()
+        {
+            return Destination.Boston;
+        }
+
+        public override FlightClass getFlightClass()
+        {
+            return FlightClass.Economy;
+        }
     }
 }

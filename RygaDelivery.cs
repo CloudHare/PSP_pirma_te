@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace PSP_pirma_te
 {
-    class RomeDelivery : PackageDelivery
+    class RygaDelivery : PackageDelivery
     {
         public override double calculatePrice(int weight)
         {
             double price;
-            price = 40.44 * 0.02 * weight;
+            price = 20.01 * 0.02 * weight;
 
             return price;
         }
 
         public override Destination getDestination()
         {
-            return Destination.Rome;  
+            return Destination.Ryga;
         }
     }
 }
